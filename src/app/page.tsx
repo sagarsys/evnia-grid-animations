@@ -33,7 +33,7 @@ export default function Home() {
             className="grid-wrapper"
             style={{ '--grid-aspect-ratio': '3 / 2' } as React.CSSProperties}
           >
-            <Grid rows={2} columns={3} gap={8}>
+            <Grid rows={2} columns={3} gap={0}>
               <GridCell 
                 id="evnia-3000"
                 className="cell-3000"
@@ -56,7 +56,7 @@ export default function Home() {
                 colSpan={2}
                 className="cell-7000"
               >
-                <div className="cell-content">
+                <div className="cell-content cell-content-right">
                   <div className="cell-header">
                     <div>
                       <h3 className="cell-title">Evnia 7000 series</h3>
@@ -75,7 +75,7 @@ export default function Home() {
                 rowSpan={1}
                 className="cell-5000"
               >
-                <div className="cell-content">
+                <div className="cell-content cell-content-center">
                   <div className="cell-header">
                     <div>
                       <h3 className="cell-title">Evnia 5000 series</h3>
