@@ -1,0 +1,15 @@
+.grid-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Let the grid system handle sizing - cells will be square naturally */
+}
+
+.grid-cell:hover {
+  background: #e0e0e0;
+}
