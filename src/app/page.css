@@ -21,8 +21,8 @@
 
 .grid-wrapper {
   width: 100%;
-  /* Set a fixed aspect ratio for the grid container */
-  aspect-ratio: 3 / 2; /* 3 columns / 2 rows */
+  /* Dynamic aspect ratio will be set via CSS custom property */
+  aspect-ratio: var(--grid-aspect-ratio, 3 / 2);
   max-height: 500px;
 }
 

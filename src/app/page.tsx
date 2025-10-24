@@ -29,7 +29,10 @@ export default function Home() {
     <div className="page-container">
       <div className="container">
         <div className="grid-display">
-          <div className="grid-wrapper">
+          <div 
+            className="grid-wrapper"
+            style={{ '--grid-aspect-ratio': '3 / 2' } as React.CSSProperties}
+          >
             <Grid rows={2} columns={3} gap={8}>
               <GridCell 
                 id="evnia-3000"

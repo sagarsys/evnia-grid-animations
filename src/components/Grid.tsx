@@ -20,7 +20,8 @@ export const Grid: React.FC<GridProps> = ({
     gridTemplateRows: `repeat(${rows}, 1fr)`,
     gridTemplateColumns: `repeat(${columns}, 1fr)`,
     gap: `${gap}px`,
-  };
+    '--grid-aspect-ratio': `${columns} / ${rows}`,
+  } as React.CSSProperties;
 
   return (
     <div 
