@@ -13,7 +13,7 @@
 }
 
 .grid-display {
-  background: rgb(0, 0, 0);
+  background: rgb(185, 185, 185);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 24px;
@@ -25,8 +25,10 @@
   aspect-ratio: var(--grid-aspect-ratio, 3 / 2);
   max-height: 500px;
   position: relative;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
+}
+
+.grid-wrapper {
+  position: relative;
 }
 
 .cell-content {
@@ -68,14 +70,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid white;
-  border-left: 1px solid white;
   padding: 16px;
   box-sizing: border-box;
-}
-
-.inner-cell:last-child {
-  border-right: 1px solid white;
+  position: relative;
 }
 
 .inner-cell.empty-cell {
@@ -115,6 +112,24 @@
 
 .cell-5000 {
   background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
+}
+
+@keyframes drawHorizontal {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes drawVertical {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
 }
 
 @media (max-width: 768px) {

@@ -3,6 +3,7 @@
 import React from 'react';
 import Grid from '@/components/Grid';
 import GridCell from '@/components/GridCell';
+import GridBorderOverlay from '@/components/GridBorderOverlay';
 import './page.css';
 
 const ArrowIcon = () => (
@@ -105,6 +106,7 @@ export default function Home() {
                 </div>
               </GridCell>
             </Grid>
+            <GridBorderOverlay rows={2} columns={3} />
           </div>
         </div>
       </div>

@@ -1,0 +1,46 @@
+.grid-border-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.border-line {
+  position: absolute;
+  background: red;
+}
+
+.horizontal-line {
+  height: 1px;
+  width: 0;
+  left: 0;
+  animation: drawHorizontal 1s ease-in-out forwards;
+}
+
+.vertical-line {
+  width: 1px;
+  height: 0;
+  top: 0;
+  animation: drawVertical 1s ease-in-out forwards;
+}
+
+@keyframes drawHorizontal {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes drawVertical {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}

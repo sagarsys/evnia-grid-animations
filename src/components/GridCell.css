@@ -8,8 +8,24 @@
   overflow: hidden;
   position: relative;
   /* Let the grid system handle sizing - cells will be square naturally */
-  border-top: 1px solid white;
-  border-left: 1px solid white;
+}
+
+@keyframes drawHorizontal {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes drawVertical {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
 }
 
 .grid-cell:hover {
