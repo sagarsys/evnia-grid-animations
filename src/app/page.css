@@ -169,7 +169,7 @@
   right: 0;
   bottom: 0;
   background-image: var(--hover-image);
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 5;
