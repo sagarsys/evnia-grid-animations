@@ -54,17 +54,24 @@ export default function Home() {
               <GridCell 
                 id="evnia-7000"
                 colSpan={2}
-                className="cell-7000"
+                className="cell-7000 cell-with-inner-grid"
               >
-                <div className="cell-content cell-content-right">
-                  <div className="cell-header">
-                    <div>
-                      <h3 className="cell-title">Evnia 7000 series</h3>
-                      <p className="cell-description">
-                        Our product series for the avid gamer with an eye for design. A high-performance screen that fits into the most stunning environments.
-                      </p>
+                <div className="inner-grid">
+                  <div className="inner-cell empty-cell">
+                    {/* Empty cell - just shows border */}
+                  </div>
+                  <div className="inner-cell content-cell">
+                    <div className="cell-content">
+                      <div className="cell-header">
+                        <div>
+                          <h3 className="cell-title">Evnia 7000 series</h3>
+                          <p className="cell-description">
+                            Our product series for the avid gamer with an eye for design. A high-performance screen that fits into the most stunning environments.
+                          </p>
+                        </div>
+                        <ArrowIcon />
+                      </div>
                     </div>
-                    <ArrowIcon />
                   </div>
                 </div>
               </GridCell>
@@ -73,17 +80,27 @@ export default function Home() {
                 id="evnia-5000"
                 colSpan={3}
                 rowSpan={1}
-                className="cell-5000"
+                className="cell-5000 cell-with-inner-grid"
               >
-                <div className="cell-content cell-content-center">
-                  <div className="cell-header">
-                    <div>
-                      <h3 className="cell-title">Evnia 5000 series</h3>
-                      <p className="cell-description">
-                        Our product series for the intermediate gamer. High performance, with a futuristic design for the more enthusiastic player.
-                      </p>
+                <div className="inner-grid-3">
+                  <div className="inner-cell empty-cell">
+                    {/* Empty cell - just shows border */}
+                  </div>
+                  <div className="inner-cell content-cell">
+                    <div className="cell-content">
+                      <div className="cell-header">
+                        <div>
+                          <h3 className="cell-title">Evnia 5000 series</h3>
+                          <p className="cell-description">
+                            Our product series for the intermediate gamer. High performance, with a futuristic design for the more enthusiastic player.
+                          </p>
+                        </div>
+                        <ArrowIcon />
+                      </div>
                     </div>
-                    <ArrowIcon />
+                  </div>
+                  <div className="inner-cell empty-cell">
+                    {/* Empty cell - just shows border */}
                   </div>
                 </div>
               </GridCell>
