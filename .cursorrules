@@ -1,0 +1,211 @@
+# Evnia Animations Project - Cursor Rules
+
+## Project Overview
+This is a React/Next.js project for creating configurable grid systems with animated borders and hover effects. The project focuses on reusability, clean CSS architecture, and dynamic animations.
+
+## Core Principles
+
+### 1. CSS Architecture & Reusability
+- **Use generic, reusable CSS classes** instead of specific component-targeted styles
+- **Avoid hardcoded selectors** like `.cell-3000`, `.cell-7000` - use generic classes instead
+- **Create utility classes** for common patterns (animations, layouts, effects)
+- **Use CSS custom properties** for dynamic values and theming
+- **Follow BEM methodology** for complex components when needed
+
+### 2. Animation System
+- **Create reusable animation classes** that can be applied to any element
+- **Use CSS custom properties** for dynamic animation values
+- **Separate animation logic** from layout logic
+- **Provide multiple animation directions** (slide-from-left, slide-from-right, etc.)
+- **Use consistent timing** across animations for cohesive experience
+
+### 3. Grid System Design
+- **Make grids completely reusable** - accept children instead of hardcoded content
+- **Use CSS Grid Layout** for flexible, responsive grids
+- **Support dynamic aspect ratios** based on rows/columns
+- **Handle cell spanning** (colSpan, rowSpan) gracefully
+- **Separate content from layout** - content should be layered on top
+
+### 4. Component Structure
+- **Keep components focused** - one responsibility per component
+- **Use TypeScript interfaces** for all props
+- **Make components configurable** through props, not hardcoded values
+- **Separate concerns** - layout components vs content components
+
+## CSS Best Practices
+
+### Generic Animation Classes
+```css
+/* ✅ Good - Reusable animation classes */
+.slide-from-left { animation: slideFromLeft 0.5s ease-out forwards; }
+.slide-from-right { animation: slideFromRight 0.5s ease-out forwards; }
+.slide-from-bottom { animation: slideFromBottom 0.5s ease-out forwards; }
+.slide-from-top { animation: slideFromTop 0.5s ease-out forwards; }
+
+/* ❌ Bad - Specific component targeting */
+.cell-3000:hover::before { /* specific to one component */ }
+```
+
+### Dynamic Image System
+```css
+/* ✅ Good - Generic hover image system */
+.hover-image::before {
+  background-image: var(--hover-image);
+  /* reusable for any element */
+}
+
+/* ❌ Bad - Hardcoded images */
+.cell-3000::before {
+  background-image: url('specific-image.jpg');
+}
+```
+
+### CSS Custom Properties
+```css
+/* ✅ Good - Use CSS custom properties for dynamic values */
+.grid-wrapper {
+  aspect-ratio: var(--grid-aspect-ratio, 3 / 2);
+}
+
+/* ❌ Bad - Hardcoded values */
+.grid-wrapper {
+  aspect-ratio: 3 / 2; /* not reusable */
+}
+```
+
+## Component Patterns
+
+### Grid Component
+- Accept `children` instead of hardcoded content
+- Calculate dynamic aspect ratios
+- Use CSS custom properties for configuration
+- Support gap, rows, columns as props
+
+### Animation Classes
+- Create direction-based classes (slide-from-*)
+- Use consistent naming conventions
+- Provide fallback values
+- Support multiple animation types
+
+### Hover Effects
+- Use generic `.hover-image` class
+- Specify images via CSS custom properties
+- Support multiple animation directions
+- Handle nested grid structures
+
+## File Organization
+
+### CSS Structure
+```
+src/
+├── components/
+│   ├── Grid.css           # Base grid styles
+│   ├── GridCell.css       # Cell-specific styles
+│   └── GridBorderOverlay.css # Border animations
+├── app/
+│   └── page.css          # Page-specific styles + reusable utilities
+```
+
+### Component Structure
+```
+src/
+├── components/
+│   ├── Grid.tsx          # Reusable grid component
+│   ├── GridCell.tsx      # Cell wrapper component
+│   └── GridBorderOverlay.tsx # Border animation overlay
+```
+
+## Animation Guidelines
+
+### Timing
+- **Border animations**: 1s duration, staggered delays
+- **Content animations**: 0.8s duration, delayed after borders
+- **Hover effects**: 0.5s duration, smooth transitions
+- **Use consistent easing**: `ease-out` for entrances, `ease-in-out` for transitions
+
+### Direction Patterns
+- **Left to right**: `slideFromLeft`
+- **Right to left**: `slideFromRight`
+- **Bottom to top**: `slideFromBottom`
+- **Top to bottom**: `slideFromTop`
+
+### Staggered Animations
+- **Border lines**: 0.1s delay between each line
+- **Content**: 0.2s delay between each cell
+- **Hover effects**: Immediate response with smooth transition
+
+## Code Examples
+
+### ✅ Good - Reusable Grid Cell
+```tsx
+<GridCell 
+  className="hover-image slide-from-left"
+  style={{ '--hover-image': 'url(image.jpg)' }}
+>
+  <div className="cell-content">Content</div>
+</GridCell>
+```
+
+### ❌ Bad - Specific Component
+```tsx
+<GridCell className="cell-3000">
+  {/* hardcoded content */}
+</GridCell>
+```
+
+### ✅ Good - Generic Animation
+```css
+.slide-from-left::before {
+  animation: slideFromLeft 0.5s ease-out forwards;
+}
+```
+
+### ❌ Bad - Specific Animation
+```css
+.cell-3000:hover::before {
+  animation: specificAnimation 0.5s ease-out forwards;
+}
+```
+
+## Development Workflow
+
+1. **Start with generic classes** - don't target specific components
+2. **Use CSS custom properties** for dynamic values
+3. **Create reusable animation utilities**
+4. **Test with multiple configurations**
+5. **Document animation patterns**
+6. **Keep CSS DRY** - avoid repetition
+
+## Performance Considerations
+
+- **Use CSS animations** over JavaScript when possible
+- **Optimize image loading** for hover effects
+- **Minimize repaints** with transform/opacity animations
+- **Use will-change** sparingly and remove after animation
+- **Preload critical images** for smooth hover effects
+
+## Testing Guidelines
+
+- **Test with different grid configurations** (2x2, 3x3, 4x2, etc.)
+- **Verify animations work** across different screen sizes
+- **Test hover effects** on various devices
+- **Ensure accessibility** with reduced motion preferences
+- **Validate performance** with multiple animated elements
+
+## Common Patterns to Avoid
+
+- ❌ Hardcoded component selectors (`.cell-3000`)
+- ❌ Specific animation classes per component
+- ❌ Inline styles for reusable patterns
+- ❌ Complex nested selectors
+- ❌ Animation timing inconsistencies
+- ❌ Non-reusable grid configurations
+
+## Common Patterns to Follow
+
+- ✅ Generic utility classes
+- ✅ CSS custom properties for dynamic values
+- ✅ Consistent animation timing
+- ✅ Reusable component patterns
+- ✅ Separation of concerns
+- ✅ Clean, maintainable CSS architecture

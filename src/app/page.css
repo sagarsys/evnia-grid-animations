@@ -99,6 +99,31 @@
   background: #f0f0f0;
 }
 
+/* Nested grid hover effects - use generic classes */
+.hover-image .inner-cell {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-image .inner-cell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-image:hover .inner-cell::before {
+  opacity: 1;
+}
+
 .cell-header {
   display: flex;
   justify-content: space-between;
@@ -128,6 +153,97 @@
 
 .cell-5000 {
   background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
+}
+
+/* Generic hover image system */
+.hover-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-image:hover::before {
+  opacity: 1;
+}
+
+/* Dynamic image loading using CSS custom properties */
+.hover-image::before {
+  background-image: var(--hover-image);
+}
+
+/* Reusable slide animations */
+.slide-from-left::before {
+  animation: slideFromLeft 0.5s ease-out forwards;
+}
+
+.slide-from-right::before {
+  animation: slideFromRight 0.5s ease-out forwards;
+}
+
+.slide-from-bottom::before {
+  animation: slideFromBottom 0.5s ease-out forwards;
+}
+
+.slide-from-top::before {
+  animation: slideFromTop 0.5s ease-out forwards;
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes drawHorizontal {

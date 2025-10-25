@@ -6,6 +6,7 @@ export interface GridCellProps {
   rowSpan?: number;
   colSpan?: number;
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }
 
@@ -14,11 +15,13 @@ export const GridCell: React.FC<GridCellProps> = ({
   rowSpan,
   colSpan,
   className = '',
+  style,
   children
 }) => {
   const cellStyle: React.CSSProperties = {
     gridRow: rowSpan ? `span ${rowSpan}` : 'auto',
     gridColumn: colSpan ? `span ${colSpan}` : 'auto',
+    ...style,
   };
 
   return (
