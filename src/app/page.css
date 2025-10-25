@@ -37,6 +37,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInFromLeft 0.8s ease-out forwards;
+}
+
+/* Staggered timing for each cell to match border animation */
+.cell-3000 .cell-content {
+  animation-delay: 1.2s;
+}
+
+.cell-7000 .cell-content {
+  animation-delay: 1.4s;
+}
+
+.cell-5000 .cell-content {
+  animation-delay: 1.6s;
 }
 
 .cell-content-right {
@@ -129,6 +145,17 @@
   }
   to {
     height: 100%;
+  }
+}
+
+@keyframes fadeInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
