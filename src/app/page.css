@@ -168,7 +168,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-size: cover;
+  background-image: var(--hover-image);
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 5;
@@ -180,25 +181,20 @@
   opacity: 1;
 }
 
-/* Dynamic image loading using CSS custom properties */
-.hover-image::before {
-  background-image: var(--hover-image);
-}
-
-/* Reusable slide animations */
-.slide-from-left::before {
+/* Reusable slide animations - trigger on hover */
+.hover-image.slide-from-left:hover::before {
   animation: slideFromLeft 0.5s ease-out forwards;
 }
 
-.slide-from-right::before {
+.hover-image.slide-from-right:hover::before {
   animation: slideFromRight 0.5s ease-out forwards;
 }
 
-.slide-from-bottom::before {
+.hover-image.slide-from-bottom:hover::before {
   animation: slideFromBottom 0.5s ease-out forwards;
 }
 
-.slide-from-top::before {
+.hover-image.slide-from-top:hover::before {
   animation: slideFromTop 0.5s ease-out forwards;
 }
 

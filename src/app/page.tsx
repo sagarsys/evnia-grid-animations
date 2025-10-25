@@ -38,7 +38,7 @@ export default function Home() {
               <GridCell 
                 id="evnia-3000"
                 className="cell-3000 hover-image slide-from-left"
-                style={{ '--hover-image': "url('data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23e0e7ff'/><text x='200' y='150' text-anchor='middle' fill='%231f2937' font-size='24' font-family='Arial'>Evnia 3000 Image</text></svg>')" } as React.CSSProperties}
+                style={{ '--hover-image': "url('/images/ai-generated-8020817_1280.jpg')" } as React.CSSProperties}
               >
                 <div className="cell-content">
                   <div className="cell-header">
@@ -57,7 +57,7 @@ export default function Home() {
                 id="evnia-7000"
                 colSpan={2}
                 className="cell-7000 cell-with-inner-grid hover-image slide-from-right"
-                style={{ '--hover-image': "url('data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23dbeafe'/><text x='200' y='150' text-anchor='middle' fill='%231f2937' font-size='24' font-family='Arial'>Evnia 7000 Image</text></svg>')" } as React.CSSProperties}
+                style={{ '--hover-image': "url('/images/istockphoto-1560833158-2048x2048.jpg')" } as React.CSSProperties}
               >
                 <div className="inner-grid">
                   <div className="inner-cell empty-cell">
@@ -84,7 +84,7 @@ export default function Home() {
                 colSpan={3}
                 rowSpan={1}
                 className="cell-5000 cell-with-inner-grid hover-image slide-from-bottom"
-                style={{ '--hover-image': "url('data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23cffafe'/><text x='200' y='150' text-anchor='middle' fill='%231f2937' font-size='24' font-family='Arial'>Evnia 5000 Image</text></svg>')" } as React.CSSProperties}
+                style={{ '--hover-image': "url('/images/ai-generated-8531096_1280.webp')" } as React.CSSProperties}
               >
                 <div className="inner-grid-3">
                   <div className="inner-cell empty-cell">
