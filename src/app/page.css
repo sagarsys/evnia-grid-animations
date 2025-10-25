@@ -155,6 +155,15 @@
   background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
 }
 
+/* Test grid cells */
+.cell-test-left {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+.cell-test-right {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
 /* Generic hover image system */
 .hover-image {
   position: relative;

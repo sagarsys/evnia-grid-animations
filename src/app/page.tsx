@@ -112,6 +112,45 @@ export default function Home() {
             <GridBorderOverlay rows={2} columns={3} />
           </div>
         </div>
+
+        {/* Test Reusability: 2x1 Grid */}
+        <div className="grid-display">
+          <div 
+            className="grid-wrapper"
+            style={{ '--grid-aspect-ratio': '2 / 1' } as React.CSSProperties}
+          >
+            <Grid rows={1} columns={2} gap={0}>
+              <GridCell 
+                id="test-left"
+                className="cell-test-left"
+              >
+                <div className="cell-content">
+                  <div className="cell-header">
+                    <div>
+                      <h3 className="cell-title">Left Section</h3>
+                      <p className="cell-description">Text content here</p>
+                    </div>
+                  </div>
+                </div>
+              </GridCell>
+
+              <GridCell 
+                id="test-right"
+                className="cell-test-right"
+              >
+                <div className="cell-content">
+                  <div className="cell-header">
+                    <div>
+                      <h3 className="cell-title">Right Section</h3>
+                      <p className="cell-description">Product display here</p>
+                    </div>
+                  </div>
+                </div>
+              </GridCell>
+            </Grid>
+            <GridBorderOverlay rows={1} columns={2} />
+          </div>
+        </div>
       </div>
     </div>
   );
