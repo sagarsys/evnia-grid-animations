@@ -180,7 +180,7 @@ Add your own CSS classes to customize appearance:
 </GridCell>
 ```
 
-## ⚡ That's It!
+## ⚡ That's It
 
 You now know everything needed to create animated grid layouts. The system handles:
 
