@@ -5,9 +5,9 @@ A React component library for creating animated grid layouts with hover effects 
 ## 🚀 Quick Start
 
 ```tsx
-import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
+import { Grid, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
 
-<GridWrapper rows={2} columns={2}>
+<Grid rows={2} columns={2}>
   <GridCell hoverImage="/image.jpg" hoverDirection="left">
     <GridCellContent>
       <CellContent>
@@ -15,7 +15,7 @@ import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } f
       </CellContent>
     </GridCellContent>
   </GridCell>
-</GridWrapper>
+</Grid>
 ```
 
 ## 📦 Components
@@ -27,7 +27,7 @@ Main container with type-safe children validation.
 ```tsx
 <GridWrapper rows={2} columns={3} gap={0}>
   {/* Only GridCell children allowed */}
-</GridWrapper>
+</Grid>
 ```
 
 ### GridCell
@@ -111,8 +111,7 @@ npm run dev
 
 ```text
 src/components/
-├── GridWrapper.tsx      # Main wrapper
-├── Grid.tsx            # CSS Grid
+├── Grid.tsx             # Main grid
 ├── GridCell.tsx        # Cell component
 ├── GridCellContent.tsx # Cell layout
 ├── CellContent.tsx     # Content wrapper

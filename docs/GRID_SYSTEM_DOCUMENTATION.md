@@ -21,34 +21,9 @@ The Evnia Grid System is a reusable, configurable grid layout system built with 
 
 ## Core Components
 
-### 1. GridWrapper Component (`src/components/GridWrapper.tsx`)
+### 1. Grid Component (`src/components/Grid.tsx`)
 
 The main wrapper that combines the grid with its aspect ratio and border overlay.
-
-```tsx
-interface GridWrapperProps {
-  rows: number;
-  columns: number;
-  gap?: number;
-  className?: string;
-  children: React.ReactElement<typeof GridCell> | React.ReactElement<typeof GridCell>[];
-}
-
-<GridWrapper rows={2} columns={3} gap={0}>
-  {/* GridCell components go here */}
-</GridWrapper>
-```
-
-**Key Features:**
-
-- **Type-safe children**: Only accepts `GridCell` components
-- **Automatic aspect ratio**: Calculates `--grid-aspect-ratio` based on `columns / rows`
-- **Integrated border overlay**: Automatically includes `GridBorderOverlay`
-- **Validation**: Warns if non-GridCell children are provided
-
-### 2. Grid Component (`src/components/Grid.tsx`)
-
-The CSS Grid container that creates the layout structure.
 
 ```tsx
 interface GridProps {
@@ -56,7 +31,7 @@ interface GridProps {
   columns: number;
   gap?: number;
   className?: string;
-  children?: React.ReactNode;
+  children: React.ReactElement<typeof GridCell> | React.ReactElement<typeof GridCell>[];
 }
 
 <Grid rows={2} columns={3} gap={0}>
@@ -66,11 +41,13 @@ interface GridProps {
 
 **Key Features:**
 
-- **Dynamic aspect ratio**: Calculates `--grid-aspect-ratio` based on `columns / rows`
-- **Flexible children**: Accepts any React children (typically GridCell components)
-- **Configurable gap**: Optional spacing between cells
+- **Type-safe children**: Only accepts `GridCell` components
+- **Automatic aspect ratio**: Calculates `--grid-aspect-ratio` based on `columns / rows`
+- **Integrated border overlay**: Automatically includes `GridBorderOverlay`
+- **Validation**: Warns if non-GridCell children are provided
+- **Reusable**: No visual styling constraints - can be styled by parent containers
 
-### 3. GridCell Component (`src/components/GridCell.tsx`)
+### 2. GridCell Component (`src/components/GridCell.tsx`)
 
 Wraps content within the grid and handles cell spanning with enhanced functionality.
 
@@ -205,19 +182,18 @@ interface GridBorderOverlayProps {
 ### Component Hierarchy
 
 ```text
-GridWrapper (type-safe container)
-├── Grid (CSS Grid layout)
-│   ├── GridCell (with innerGrid support)
-│   │   ├── GridCellContent (layout structure)
-│   │   │   └── CellContent (base content wrapper)
-│   │   │       └── ProductContent (product-specific content)
-│   │   └── GridCell (nested inner grid)
-│   │       ├── GridCellContent (innerCell={true})
-│   │       │   └── CellContent (empty={true})
-│   │       └── GridCellContent (innerCell={true})
-│   │           └── CellContent
-│   │               └── ProductContent
-│   └── GridCell (spans multiple columns)
+Grid (type-safe container with integrated CSS Grid)
+├── GridCell (with innerGrid support)
+│   ├── GridCellContent (layout structure)
+│   │   └── CellContent (base content wrapper)
+│   │       └── ProductContent (product-specific content)
+│   └── GridCell (nested inner grid)
+│       ├── GridCellContent (innerCell={true})
+│       │   └── CellContent (empty={true})
+│       └── GridCellContent (innerCell={true})
+│           └── CellContent
+│               └── ProductContent
+├── GridCell (spans multiple columns)
 └── GridBorderOverlay (animated borders)
     ├── Horizontal lines (rows + 1)
     └── Vertical lines (columns + 1)
@@ -698,10 +674,8 @@ Text content fades in with staggered timing:
 ```text
 src/
 ├── components/
-│   ├── GridWrapper.tsx          # Main wrapper with type safety
-│   ├── GridWrapper.css          # Wrapper styles
-│   ├── Grid.tsx                 # CSS Grid component
-│   ├── Grid.css                 # Grid base styles
+│   ├── Grid.tsx                 # Main grid with integrated CSS Grid
+│   ├── Grid.css                 # Grid styles
 │   ├── GridCell.tsx             # Cell wrapper with enhanced features
 │   ├── GridCell.css             # Cell base styles
 │   ├── GridCellContent.tsx      # Cell content layout

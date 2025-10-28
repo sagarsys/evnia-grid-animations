@@ -9,9 +9,9 @@ The Evnia Grid System is a React component library for creating animated grid la
 ### 1. Simple Grid
 
 ```tsx
-import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
+import { Grid, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
 
-<GridWrapper rows={2} columns={2}>
+<Grid rows={2} columns={2}>
   <GridCell className="cell-1">
     <GridCellContent>
       <CellContent>
@@ -26,7 +26,7 @@ import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } f
       </CellContent>
     </GridCellContent>
   </GridCell>
-</GridWrapper>
+</Grid>
 ```
 
 ### 2. Grid with Hover Effects
@@ -64,7 +64,7 @@ import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } f
 
 | Component | Purpose | Key Props |
 |-----------|---------|-----------|
-| `GridWrapper` | Main container | `rows`, `columns`, `gap` |
+| `Grid` | Main container | `rows`, `columns`, `gap` |
 | `GridCell` | Individual cell | `colSpan`, `rowSpan`, `hoverImage`, `hoverDirection`, `innerGrid` |
 | `GridCellContent` | Cell layout | `innerCell` |
 | `CellContent` | Content wrapper | `empty` |
@@ -110,11 +110,11 @@ hoverDirection="bottom"  // ↓ slides from bottom
 ## 🎯 Complete Example
 
 ```tsx
-import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
+import { Grid, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
 
 export default function MyGrid() {
   return (
-    <GridWrapper rows={2} columns={3}>
+    <Grid rows={2} columns={3}>
       {/* Single cell with hover */}
       <GridCell 
         className="cell-1"
@@ -157,7 +157,7 @@ export default function MyGrid() {
           </CellContent>
         </GridCellContent>
       </GridCell>
-    </GridWrapper>
+    </Grid>
   );
 }
 ```
