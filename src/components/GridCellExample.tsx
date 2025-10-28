@@ -2,7 +2,7 @@ import React from 'react';
 import GridWrapper from './GridWrapper';
 import GridCell from './GridCell';
 import GridCellContent from './GridCellContent';
-import { ProductContent } from './Content';
+import ProductContent from './ProductContent';
 
 // Example demonstrating the new props-based hover image approach
 export const GridCellExample: React.FC = () => {

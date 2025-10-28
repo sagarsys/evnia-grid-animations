@@ -1,0 +1,12 @@
+/* GridContent component styles */
+.grid-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.grid-content.empty {
+  /* Empty cell - just shows border */
+}
