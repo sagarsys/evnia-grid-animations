@@ -4,7 +4,7 @@ import React from 'react';
 import GridWrapper from '@/components/GridWrapper';
 import GridCell from '@/components/GridCell';
 import GridCellContent from '@/components/GridCellContent';
-import GridContent from '@/components/GridContent';
+import CellContent from '@/components/CellContent';
 import ProductContent from '@/components/ProductContent';
 import './page.css';
 
@@ -34,7 +34,7 @@ export default function Home() {
             innerGrid={true}
           >
             <GridCellContent innerCell={true}>
-              <GridContent empty={true} />
+              <CellContent empty={true} />
             </GridCellContent>
             <GridCellContent innerCell={true}>
               <ProductContent
@@ -53,7 +53,7 @@ export default function Home() {
             innerGrid={true}
           >
             <GridCellContent innerCell={true}>
-              <GridContent empty={true} />
+              <CellContent empty={true} />
             </GridCellContent>
             <GridCellContent innerCell={true}>
               <ProductContent
@@ -62,7 +62,7 @@ export default function Home() {
               />
             </GridCellContent>
             <GridCellContent innerCell={true}>
-              <GridContent empty={true} />
+              <CellContent empty={true} />
             </GridCellContent>
           </GridCell>
         </GridWrapper>
