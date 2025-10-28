@@ -1,11 +1,13 @@
 # Evnia Animations Project - Cursor Rules
 
 ## Project Overview
+
 This is a React/Next.js project for creating configurable grid systems with animated borders and hover effects. The project focuses on reusability, clean CSS architecture, and dynamic animations.
 
 ## Core Principles
 
 ### 1. CSS Architecture & Reusability
+
 - **Use generic, reusable CSS classes** instead of specific component-targeted styles
 - **Avoid hardcoded selectors** like `.cell-3000`, `.cell-7000` - use generic classes instead
 - **Create utility classes** for common patterns (animations, layouts, effects)
@@ -13,6 +15,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 - **Follow BEM methodology** for complex components when needed
 
 ### 2. Animation System
+
 - **Create reusable animation classes** that can be applied to any element
 - **Use CSS custom properties** for dynamic animation values
 - **Separate animation logic** from layout logic
@@ -20,6 +23,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 - **Use consistent timing** across animations for cohesive experience
 
 ### 3. Grid System Design
+
 - **Make grids completely reusable** - accept children instead of hardcoded content
 - **Use CSS Grid Layout** for flexible, responsive grids
 - **Support dynamic aspect ratios** based on rows/columns
@@ -27,6 +31,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 - **Separate content from layout** - content should be layered on top
 
 ### 4. Component Structure
+
 - **Keep components focused** - one responsibility per component
 - **Use TypeScript interfaces** for all props
 - **Make components configurable** through props, not hardcoded values
@@ -35,6 +40,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 ## CSS Best Practices
 
 ### Generic Animation Classes
+
 ```css
 /* ✅ Good - Reusable animation classes */
 .slide-from-left { animation: slideFromLeft 0.5s ease-out forwards; }
@@ -47,6 +53,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 ```
 
 ### Dynamic Image System
+
 ```css
 /* ✅ Good - Generic hover image system */
 .hover-image::before {
@@ -61,6 +68,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 ```
 
 ### CSS Custom Properties
+
 ```css
 /* ✅ Good - Use CSS custom properties for dynamic values */
 .grid-wrapper {
@@ -76,18 +84,21 @@ This is a React/Next.js project for creating configurable grid systems with anim
 ## Component Patterns
 
 ### Grid Component
+
 - Accept `children` instead of hardcoded content
 - Calculate dynamic aspect ratios
 - Use CSS custom properties for configuration
 - Support gap, rows, columns as props
 
 ### Animation Classes
+
 - Create direction-based classes (slide-from-*)
 - Use consistent naming conventions
 - Provide fallback values
 - Support multiple animation types
 
 ### Hover Effects
+
 - Use generic `.hover-image` class
 - Specify images via CSS custom properties
 - Support multiple animation directions
@@ -96,6 +107,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 ## File Organization
 
 ### CSS Structure
+
 ```
 src/
 ├── components/
@@ -107,6 +119,7 @@ src/
 ```
 
 ### Component Structure
+
 ```
 src/
 ├── components/
@@ -118,18 +131,21 @@ src/
 ## Animation Guidelines
 
 ### Timing
+
 - **Border animations**: 1s duration, staggered delays
 - **Content animations**: 0.8s duration, delayed after borders
 - **Hover effects**: 0.5s duration, smooth transitions
 - **Use consistent easing**: `ease-out` for entrances, `ease-in-out` for transitions
 
 ### Direction Patterns
+
 - **Left to right**: `slideFromLeft`
 - **Right to left**: `slideFromRight`
 - **Bottom to top**: `slideFromBottom`
 - **Top to bottom**: `slideFromTop`
 
 ### Staggered Animations
+
 - **Border lines**: 0.1s delay between each line
 - **Content**: 0.2s delay between each cell
 - **Hover effects**: Immediate response with smooth transition
@@ -137,6 +153,7 @@ src/
 ## Code Examples
 
 ### ✅ Good - Reusable Grid Cell
+
 ```tsx
 <GridCell 
   className="hover-image slide-from-left"
@@ -147,6 +164,7 @@ src/
 ```
 
 ### ❌ Bad - Specific Component
+
 ```tsx
 <GridCell className="cell-3000">
   {/* hardcoded content */}
@@ -154,6 +172,7 @@ src/
 ```
 
 ### ✅ Good - Generic Animation
+
 ```css
 .slide-from-left::before {
   animation: slideFromLeft 0.5s ease-out forwards;
@@ -161,6 +180,7 @@ src/
 ```
 
 ### ❌ Bad - Specific Animation
+
 ```css
 .cell-3000:hover::before {
   animation: specificAnimation 0.5s ease-out forwards;
@@ -179,12 +199,14 @@ src/
 ## Git Commit Guidelines
 
 ### Logical Commit Organization
+
 - **Group related changes** in single commits
 - **Separate unrelated changes** into different commits
 - **Use descriptive commit messages** with clear scope
 - **Follow conventional commit format**: `type(scope): description`
 
 ### Commit Types
+
 - `feat:` - New features or functionality
 - `fix:` - Bug fixes
 - `refactor:` - Code restructuring without changing functionality
@@ -193,6 +215,7 @@ src/
 - `chore:` - Build process, dependencies, tooling changes
 
 ### Examples
+
 ```bash
 # ✅ Good - Related changes grouped together
 git commit -m "refactor: rename GridWrapper to Grid and remove unused components"
@@ -204,7 +227,8 @@ git commit -m "fix bugs and update docs and remove unused CSS"
 ```
 
 ### Commit Message Format
-```
+
+```text
 type(scope): brief description
 
 - Detailed bullet points explaining what was changed
