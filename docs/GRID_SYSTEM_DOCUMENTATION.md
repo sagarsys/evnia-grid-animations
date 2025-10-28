@@ -1,14 +1,53 @@
 # Evnia Grid System Documentation
 
+> **Quick Start**: See [QUICK_START.md](./QUICK_START.md) for a 5-minute getting started guide.
+
 ## Overview
 
-The Evnia Grid System is a reusable, configurable grid layout system built with React and CSS. It supports dynamic aspect ratios, cell spanning, animated borders, and hover effects. The system is designed to be completely reusable across different grid configurations.
+The Evnia Grid System is a reusable, configurable grid layout system built with React and CSS. It supports dynamic aspect ratios, cell spanning, animated borders, and hover effects with a clean separation between grid logic and content.
+
+## Table of Contents
+
+- [Core Components](#core-components)
+- [Grid Architecture](#grid-architecture)
+- [Cell Spanning System](#cell-spanning-system)
+- [Animation System](#animation-system)
+- [Usage Examples](#usage-examples)
+- [CSS Architecture](#css-architecture)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+- [API Reference](#api-reference)
 
 ## Core Components
 
-### 1. Grid Component (`src/components/Grid.tsx`)
+### 1. GridWrapper Component (`src/components/GridWrapper.tsx`)
 
-The main grid container that creates a CSS Grid layout.
+The main wrapper that combines the grid with its aspect ratio and border overlay.
+
+```tsx
+interface GridWrapperProps {
+  rows: number;
+  columns: number;
+  gap?: number;
+  className?: string;
+  children: React.ReactElement<typeof GridCell> | React.ReactElement<typeof GridCell>[];
+}
+
+<GridWrapper rows={2} columns={3} gap={0}>
+  {/* GridCell components go here */}
+</GridWrapper>
+```
+
+**Key Features:**
+
+- **Type-safe children**: Only accepts `GridCell` components
+- **Automatic aspect ratio**: Calculates `--grid-aspect-ratio` based on `columns / rows`
+- **Integrated border overlay**: Automatically includes `GridBorderOverlay`
+- **Validation**: Warns if non-GridCell children are provided
+
+### 2. Grid Component (`src/components/Grid.tsx`)
+
+The CSS Grid container that creates the layout structure.
 
 ```tsx
 interface GridProps {
@@ -25,41 +64,123 @@ interface GridProps {
 ```
 
 **Key Features:**
+
 - **Dynamic aspect ratio**: Calculates `--grid-aspect-ratio` based on `columns / rows`
 - **Flexible children**: Accepts any React children (typically GridCell components)
 - **Configurable gap**: Optional spacing between cells
 
-### 2. GridCell Component (`src/components/GridCell.tsx`)
+### 3. GridCell Component (`src/components/GridCell.tsx`)
 
-Wraps content within the grid and handles cell spanning.
+Wraps content within the grid and handles cell spanning with enhanced functionality.
 
 ```tsx
 interface GridCellProps {
-  id: string;
-  colSpan?: number;
+  id?: string;
   rowSpan?: number;
+  colSpan?: number;
   className?: string;
   style?: React.CSSProperties;
+  hoverImage?: string;
+  hoverDirection?: 'left' | 'right' | 'top' | 'bottom';
+  innerGrid?: boolean; // New prop for automatic inner grid handling
   children: React.ReactNode;
 }
 
 <GridCell 
-  id="cell-1" 
-  colSpan={2} 
-  rowSpan={1}
-  className="custom-cell"
-  style={{ '--hover-image': "url('/image.jpg')" }}
+  colSpan={2}
+  className="cell-7000"
+  hoverImage="/images/product.jpg"
+  hoverDirection="right"
+  innerGrid={true}
 >
-  <div>Content here</div>
+  {/* Content goes here */}
 </GridCell>
 ```
 
 **Key Features:**
-- **Cell spanning**: `colSpan` and `rowSpan` for multi-cell content
-- **Custom styling**: Accepts `className` and `style` props
-- **Content flexibility**: Any React content as children
 
-### 3. GridBorderOverlay Component (`src/components/GridBorderOverlay.tsx`)
+- **Props-based hover images**: Clean API with `hoverImage` and `hoverDirection` props
+- **Automatic inner grid**: `innerGrid={true}` automatically wraps children in inner grid
+- **Cell spanning**: `colSpan` and `rowSpan` for multi-cell content
+- **Type-safe hover directions**: Limited to valid animation directions
+
+### 4. GridCellContent Component (`src/components/GridCellContent.tsx`)
+
+Handles the layout structure for individual cell content.
+
+```tsx
+interface GridCellContentProps {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  innerCell?: boolean; // For inner grid cells
+}
+
+<GridCellContent innerCell={true}>
+  <CellContent>
+    <ProductContent title="Product" description="Description" />
+  </CellContent>
+</GridCellContent>
+```
+
+**Key Features:**
+
+- **Layout structure**: Handles cell content positioning
+- **Inner cell support**: `innerCell` prop for nested grid layouts
+- **Content flexibility**: Accepts any React children
+
+### 5. CellContent Component (`src/components/CellContent.tsx`)
+
+Base content wrapper that handles both regular and empty content.
+
+```tsx
+interface CellContentProps {
+  children?: React.ReactNode;
+  empty?: boolean;
+  className?: string;
+}
+
+// Empty cell
+<CellContent empty={true} />
+
+// Regular content
+<CellContent>
+  <ProductContent title="Product" description="Description" />
+</CellContent>
+```
+
+**Key Features:**
+
+- **Unified API**: Single component for both empty and regular content
+- **Clean logic**: Early return pattern for better readability
+- **Flexible content**: Accepts any React children
+
+### 6. ProductContent Component (`src/components/ProductContent.tsx`)
+
+Dedicated component for product-specific content and styling.
+
+```tsx
+interface ProductContentProps {
+  title: string;
+  description: string;
+  showArrow?: boolean;
+  className?: string;
+}
+
+<ProductContent
+  title="Evnia 3000 series"
+  description="Our product series for the casual gamer."
+  showArrow={true}
+/>
+```
+
+**Key Features:**
+
+- **Product-specific styling**: Handles all product data and styling
+- **Configurable arrow**: `showArrow` prop to control arrow visibility
+- **Type-safe props**: Full TypeScript support for product data
+
+### 7. GridBorderOverlay Component (`src/components/GridBorderOverlay.tsx`)
 
 Creates animated border lines that overlay the grid.
 
@@ -73,17 +194,39 @@ interface GridBorderOverlayProps {
 ```
 
 **Key Features:**
+
 - **Dynamic line generation**: Creates borders based on grid dimensions
 - **Animated drawing**: Lines draw from origin points with staggered timing
 - **Overlay positioning**: Absolute positioning over grid content
 
 ## Grid Architecture
 
+### Component Hierarchy
+
+```text
+GridWrapper (type-safe container)
+├── Grid (CSS Grid layout)
+│   ├── GridCell (with innerGrid support)
+│   │   ├── GridCellContent (layout structure)
+│   │   │   └── CellContent (base content wrapper)
+│   │   │       └── ProductContent (product-specific content)
+│   │   └── GridCell (nested inner grid)
+│   │       ├── GridCellContent (innerCell={true})
+│   │       │   └── CellContent (empty={true})
+│   │       └── GridCellContent (innerCell={true})
+│   │           └── CellContent
+│   │               └── ProductContent
+│   └── GridCell (spans multiple columns)
+└── GridBorderOverlay (animated borders)
+    ├── Horizontal lines (rows + 1)
+    └── Vertical lines (columns + 1)
+```
+
 ### Basic Grid Structure
 
-```
+```text
 ┌─────────────────────────────────────┐
-│           grid-wrapper              │
+│           GridWrapper               │
 │  ┌─────────────────────────────────┐ │
 │  │         Grid (CSS Grid)        │ │
 │  │  ┌─────┬─────┬─────┐           │ │
@@ -101,7 +244,7 @@ interface GridBorderOverlayProps {
 
 ### Animation Flow Diagram
 
-```
+```text
 1. Page Load
    ↓
 2. Border Lines Draw (0.2s - 0.8s)
@@ -116,19 +259,6 @@ interface GridBorderOverlayProps {
 4. Hover Effects (On hover)
    ├─ Image slides in from direction
    └─ Smooth transition (0.5s)
-```
-
-### Component Hierarchy
-
-```
-GridWrapper (aspect-ratio container)
-├── Grid (CSS Grid layout)
-│   ├── GridCell (spans 1 column)
-│   ├── GridCell (spans 2 columns)
-│   └── GridCell (spans 3 columns)
-└── GridBorderOverlay (animated borders)
-    ├── Horizontal lines (rows + 1)
-    └── Vertical lines (columns + 1)
 ```
 
 ### CSS Grid Layout
@@ -156,9 +286,11 @@ The grid wrapper maintains proper aspect ratio:
 ```
 
 **JavaScript calculation:**
+
 ```tsx
+const aspectRatio = `${columns} / ${rows}`;
 const gridStyle = {
-  '--grid-aspect-ratio': `${columns} / ${rows}`,
+  '--grid-aspect-ratio': aspectRatio,
   // ... other styles
 };
 ```
@@ -166,78 +298,80 @@ const gridStyle = {
 ## Cell Spanning System
 
 ### Basic Cell (1x1)
+
 ```tsx
-<GridCell id="cell-1">
-  <div>Single cell content</div>
+<GridCell className="cell-3000">
+  <GridCellContent>
+    <CellContent>
+      <ProductContent
+        title="Evnia 3000 series"
+        description="Our product series for the casual gamer."
+      />
+    </CellContent>
+  </GridCellContent>
 </GridCell>
 ```
 
 ### Horizontal Spanning (2 columns)
+
 ```tsx
-<GridCell id="cell-2" colSpan={2}>
-  <div>Spans 2 columns</div>
+<GridCell colSpan={2} className="cell-7000">
+  <GridCellContent>
+    <CellContent>
+      <ProductContent
+        title="Evnia 7000 series"
+        description="High-performance gaming monitor."
+      />
+    </CellContent>
+  </GridCellContent>
 </GridCell>
 ```
 
-### Vertical Spanning (2 rows)
+### Complex Inner Grid (2 columns with nested layout)
+
 ```tsx
-<GridCell id="cell-3" rowSpan={2}>
-  <div>Spans 2 rows</div>
+<GridCell 
+  colSpan={2}
+  className="cell-7000"
+  innerGrid={true}
+>
+  <GridCellContent innerCell={true}>
+    <CellContent empty={true} />
+  </GridCellContent>
+  <GridCellContent innerCell={true}>
+    <CellContent>
+      <ProductContent
+        title="Evnia 7000 series"
+        description="High-performance gaming monitor."
+      />
+    </CellContent>
+  </GridCellContent>
 </GridCell>
 ```
 
-### Complex Spanning (2x2)
+### 3-Column Inner Grid
+
 ```tsx
-<GridCell id="cell-4" colSpan={2} rowSpan={2}>
-  <div>Spans 2x2 area</div>
+<GridCell 
+  colSpan={3}
+  className="cell-5000 cell-with-inner-grid-3"
+  innerGrid={true}
+>
+  <GridCellContent innerCell={true}>
+    <CellContent empty={true} />
+  </GridCellContent>
+  <GridCellContent innerCell={true}>
+    <CellContent>
+      <ProductContent
+        title="Evnia 5000 series"
+        description="Intermediate gaming monitor."
+      />
+    </CellContent>
+  </GridCellContent>
+  <GridCellContent innerCell={true}>
+    <CellContent empty={true} />
+  </GridCellContent>
 </GridCell>
-```
-
-## Nested Grid System
-
-For complex layouts within spanned cells:
-
-### 2-Column Nested Grid
-```tsx
-<GridCell colSpan={2} className="cell-with-inner-grid">
-  <div className="inner-grid">
-    <div className="inner-cell empty-cell"></div>
-    <div className="inner-cell content-cell">
-      <div>Content in right column</div>
-    </div>
-  </div>
-</GridCell>
-```
-
-```css
-.inner-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  height: 100%;
-}
-```
-
-### 3-Column Nested Grid
-```tsx
-<GridCell colSpan={3} className="cell-with-inner-grid">
-  <div className="inner-grid-3">
-    <div className="inner-cell empty-cell"></div>
-    <div className="inner-cell content-cell">
-      <div>Content in middle column</div>
-    </div>
-    <div className="inner-cell empty-cell"></div>
-  </div>
-</GridCell>
-```
-
-```css
-.inner-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-  height: 100%;
-}
 ```
 
 ## Animation System
@@ -261,31 +395,42 @@ const verticalLines = Array.from({ length: columns + 1 }, (_, i) => ({
 ```
 
 **Animation Timing:**
+
 - **Horizontal lines**: Start at 0.2s, each line +0.1s delay
 - **Vertical lines**: Start at 0.5s, each line +0.1s delay
 - **Duration**: 1s per line
 - **Easing**: `ease-in-out`
 
-### Hover Image Animations
+### Props-Based Hover Image Animations
 
-Generic hover system with multiple animation directions:
+Clean API for hover effects with type-safe directions:
 
 ```tsx
 <GridCell 
-  className="hover-image slide-from-left"
-  style={{ '--hover-image': "url('/image.jpg')" }}
+  className="cell-3000"
+  hoverImage="/images/evnia-3000.jpg"
+  hoverDirection="left"
 >
-  <div>Content</div>
+  <GridCellContent>
+    <CellContent>
+      <ProductContent
+        title="Evnia 3000 series"
+        description="Our product series for the casual gamer."
+      />
+    </CellContent>
+  </GridCellContent>
 </GridCell>
 ```
 
-**Available Animation Classes:**
-- `slide-from-left`: Image slides from left to right
-- `slide-from-right`: Image slides from right to left
-- `slide-from-bottom`: Image slides from bottom to top
-- `slide-from-top`: Image slides from top to bottom
+**Available Animation Directions:**
+
+- `left`: Image slides from left to right
+- `right`: Image slides from right to left
+- `bottom`: Image slides from bottom to top
+- `top`: Image slides from top to bottom
 
 **CSS Implementation:**
+
 ```css
 .hover-image::before {
   content: '';
@@ -322,71 +467,135 @@ Text content fades in with staggered timing:
 ## Usage Examples
 
 ### Basic 2x2 Grid
+
 ```tsx
-<div className="grid-wrapper" style={{ '--grid-aspect-ratio': '2 / 2' }}>
-  <Grid rows={2} columns={2} gap={0}>
-    <GridCell id="top-left">
-      <div className="cell-content">Top Left</div>
-    </GridCell>
-    <GridCell id="top-right">
-      <div className="cell-content">Top Right</div>
-    </GridCell>
-    <GridCell id="bottom-left">
-      <div className="cell-content">Bottom Left</div>
-    </GridCell>
-    <GridCell id="bottom-right">
-      <div className="cell-content">Bottom Right</div>
-    </GridCell>
-  </Grid>
-  <GridBorderOverlay rows={2} columns={2} />
-</div>
+<GridWrapper rows={2} columns={2} gap={0}>
+  <GridCell className="cell-1">
+    <GridCellContent>
+      <CellContent>
+        <ProductContent
+          title="Top Left"
+          description="Description here"
+        />
+      </CellContent>
+    </GridCellContent>
+  </GridCell>
+  <GridCell className="cell-2">
+    <GridCellContent>
+      <CellContent>
+        <ProductContent
+          title="Top Right"
+          description="Description here"
+        />
+      </CellContent>
+    </GridCellContent>
+  </GridCell>
+  <GridCell className="cell-3">
+    <GridCellContent>
+      <CellContent>
+        <ProductContent
+          title="Bottom Left"
+          description="Description here"
+        />
+      </CellContent>
+    </GridCellContent>
+  </GridCell>
+  <GridCell className="cell-4">
+    <GridCellContent>
+      <CellContent>
+        <ProductContent
+          title="Bottom Right"
+          description="Description here"
+        />
+      </CellContent>
+    </GridCellContent>
+  </GridCell>
+</GridWrapper>
 ```
 
-### Complex Layout with Spanning
-```tsx
-<div className="grid-wrapper" style={{ '--grid-aspect-ratio': '3 / 2' }}>
-  <Grid rows={2} columns={3} gap={0}>
-    {/* Single cell */}
-    <GridCell id="cell-1">
-      <div className="cell-content">Single</div>
-    </GridCell>
-    
-    {/* Spans 2 columns */}
-    <GridCell id="cell-2" colSpan={2}>
-      <div className="cell-content">Spans 2 columns</div>
-    </GridCell>
-    
-    {/* Spans 3 columns */}
-    <GridCell id="cell-3" colSpan={3}>
-      <div className="cell-content">Spans 3 columns</div>
-    </GridCell>
-  </Grid>
-  <GridBorderOverlay rows={2} columns={3} />
-</div>
-```
+### Complex Layout with Inner Grids
 
-### Grid with Hover Effects
 ```tsx
-<GridCell 
-  id="hover-cell"
-  className="hover-image slide-from-left"
-  style={{ '--hover-image': "url('/images/product.jpg')" }}
->
-  <div className="cell-content">
-    <h3>Product Name</h3>
-    <p>Description</p>
-  </div>
-</GridCell>
+<GridWrapper rows={2} columns={3} gap={0}>
+  {/* Single cell */}
+  <GridCell className="cell-3000">
+    <GridCellContent>
+      <CellContent>
+        <ProductContent
+          title="Evnia 3000 series"
+          description="Our product series for the casual gamer."
+        />
+      </CellContent>
+    </GridCellContent>
+  </GridCell>
+  
+  {/* 2-column inner grid */}
+  <GridCell 
+    colSpan={2}
+    className="cell-7000"
+    hoverImage="/images/evnia-7000.jpg"
+    hoverDirection="right"
+    innerGrid={true}
+  >
+    <GridCellContent innerCell={true}>
+      <CellContent empty={true} />
+    </GridCellContent>
+    <GridCellContent innerCell={true}>
+      <CellContent>
+        <ProductContent
+          title="Evnia 7000 series"
+          description="High-performance gaming monitor."
+        />
+      </CellContent>
+    </GridCellContent>
+  </GridCell>
+  
+  {/* 3-column inner grid */}
+  <GridCell 
+    colSpan={3}
+    className="cell-5000 cell-with-inner-grid-3"
+    hoverImage="/images/evnia-5000.jpg"
+    hoverDirection="bottom"
+    innerGrid={true}
+  >
+    <GridCellContent innerCell={true}>
+      <CellContent empty={true} />
+    </GridCellContent>
+    <GridCellContent innerCell={true}>
+      <CellContent>
+        <ProductContent
+          title="Evnia 5000 series"
+          description="Intermediate gaming monitor."
+        />
+      </CellContent>
+    </GridCellContent>
+    <GridCellContent innerCell={true}>
+      <CellContent empty={true} />
+    </GridCellContent>
+  </GridCell>
+</GridWrapper>
 ```
 
 ## CSS Architecture
 
-### Reusable Classes
+### Component-Specific Styles
+
 ```css
-/* Grid system */
+/* GridWrapper styles */
 .grid-wrapper { /* Container with aspect ratio */ }
+.grid-display { /* Display wrapper */ }
+
+/* Grid system */
 .grid-container { /* CSS Grid layout */ }
 .grid-cell { /* Individual cell styling */ }
+
+/* Content components */
+.cell-content { /* Base content wrapper */ }
+.grid-content { /* GridContent component */ }
+.product-content { /* ProductContent component */ }
+.product-header { /* Product header layout */ }
+.product-title { /* Product title styling */ }
+.product-description { /* Product description styling */ }
 
 /* Animation system */
 .hover-image { /* Base hover functionality */ }
@@ -395,42 +604,55 @@ Text content fades in with staggered timing:
 .slide-from-bottom { /* Animation direction */ }
 .slide-from-top { /* Animation direction */ }
 
-/* Content system */
-.cell-content { /* Content wrapper */ }
-.cell-header { /* Header section */ }
-.cell-title { /* Title styling */ }
-.cell-description { /* Description styling */ }
+/* Inner grid system */
+.inner-grid { /* 2-column inner grid */ }
+.inner-grid-3 { /* 3-column inner grid */ }
+.inner-cell { /* Inner cell styling */ }
+.cell-with-inner-grid { /* Inner grid container */ }
+.cell-with-inner-grid-3 { /* 3-column inner grid container */ }
 ```
 
 ### CSS Custom Properties
+
 ```css
 .grid-wrapper {
   --grid-aspect-ratio: 3 / 2; /* Set by JavaScript */
 }
 
 .hover-image::before {
-  --hover-image: url('/image.jpg'); /* Set by inline style */
+  --hover-image: url('/image.jpg'); /* Set by props */
 }
 ```
 
 ## Best Practices
 
-### 1. Grid Configuration
-- **Always set aspect ratio**: `style={{ '--grid-aspect-ratio': 'columns / rows' }}`
-- **Use GridBorderOverlay**: Match rows/columns with Grid component
-- **Plan cell spanning**: Consider content layout before implementing
+### 1. Component Usage
 
-### 2. Animation Timing
+- **Use GridWrapper**: Always wrap grids with `GridWrapper` for type safety
+- **Props-based hover**: Use `hoverImage` and `hoverDirection` props instead of CSS variables
+- **Inner grid support**: Use `innerGrid={true}` for complex layouts
+- **Content separation**: Use `CellContent` for base content, `ProductContent` for product data
+
+### 2. Grid Configuration
+
+- **Always set aspect ratio**: `GridWrapper` handles this automatically
+- **Plan cell spanning**: Consider content layout before implementing
+- **Use type-safe children**: `GridWrapper` only accepts `GridCell` components
+
+### 3. Animation Timing
+
 - **Border animations**: 0.2s start, 0.1s stagger
 - **Content animations**: 1.2s+ start (after borders)
 - **Hover animations**: 0.5s duration, immediate trigger
 
-### 3. Content Structure
-- **Use semantic HTML**: Proper heading hierarchy
-- **Consistent classes**: `.cell-content`, `.cell-header`, etc.
-- **Accessible content**: Alt text for images, proper contrast
+### 4. Content Structure
 
-### 4. Performance
+- **Use semantic components**: `ProductContent` for product data
+- **Consistent patterns**: `GridCellContent` → `CellContent` → `ProductContent`
+- **Empty cells**: Use `CellContent empty={true}` for empty cells
+
+### 5. Performance
+
 - **Optimize images**: Use appropriate formats and sizes
 - **CSS animations**: Prefer CSS over JavaScript
 - **Minimize repaints**: Use transform/opacity for animations
@@ -439,47 +661,112 @@ Text content fades in with staggered timing:
 
 ### Common Issues
 
-**1. Borders not showing:**
-- Ensure `GridBorderOverlay` has correct rows/columns
-- Check that `grid-wrapper` has `position: relative`
+**1. TypeScript errors with GridWrapper:**
+
+- Ensure all children are `GridCell` components
+- Check that `GridCell` is properly imported
 
 **2. Hover animations not working:**
-- Verify `--hover-image` CSS variable is set
+
+- Verify `hoverImage` and `hoverDirection` props are set
 - Check that animation classes are applied correctly
 - Ensure hover state triggers animation
 
-**3. Cell spanning issues:**
-- Verify `colSpan`/`rowSpan` values don't exceed grid bounds
-- Check that parent grid has enough columns/rows
+**3. Inner grid not working:**
 
-**4. Aspect ratio problems:**
-- Ensure `--grid-aspect-ratio` is set correctly
-- Verify CSS custom property syntax: `'3 / 2'` not `3/2`
+- Set `innerGrid={true}` on `GridCell`
+- Use `innerCell={true}` on `GridCellContent` for inner cells
+- Apply appropriate CSS classes for grid template
+
+**4. Content not displaying:**
+
+- Ensure proper component hierarchy: `GridCellContent` → `CellContent` → `ProductContent`
+- Check that `ProductContent` has required `title` and `description` props
 
 ### Debug Checklist
-- [ ] Grid dimensions match GridBorderOverlay
-- [ ] Aspect ratio is set on grid-wrapper
-- [ ] Cell spanning doesn't exceed grid bounds
-- [ ] Animation classes are applied correctly
-- [ ] CSS custom properties are set properly
+
+- [ ] GridWrapper children are all GridCell components
+- [ ] Inner grid has `innerGrid={true}` and `innerCell={true}` props
+- [ ] Hover props are set correctly (`hoverImage`, `hoverDirection`)
+- [ ] Content hierarchy is correct
+- [ ] CSS classes are applied properly
 - [ ] Images are accessible and optimized
 
 ## File Structure
 
-```
+```text
 src/
 ├── components/
-│   ├── Grid.tsx              # Main grid component
-│   ├── Grid.css              # Grid base styles
-│   ├── GridCell.tsx          # Cell wrapper component
-│   ├── GridCell.css          # Cell base styles
-│   ├── GridBorderOverlay.tsx # Border animation overlay
-│   └── GridBorderOverlay.css # Border animation styles
+│   ├── GridWrapper.tsx          # Main wrapper with type safety
+│   ├── GridWrapper.css          # Wrapper styles
+│   ├── Grid.tsx                 # CSS Grid component
+│   ├── Grid.css                 # Grid base styles
+│   ├── GridCell.tsx             # Cell wrapper with enhanced features
+│   ├── GridCell.css             # Cell base styles
+│   ├── GridCellContent.tsx      # Cell content layout
+│   ├── GridCellContent.css      # Cell content styles
+│   ├── CellContent.tsx          # Base content wrapper
+│   ├── CellContent.css          # Content styles
+│   ├── ProductContent.tsx       # Product-specific content
+│   ├── ProductContent.css       # Product content styles
+│   ├── GridBorderOverlay.tsx    # Border animation overlay
+│   └── GridBorderOverlay.css    # Border animation styles
 ├── app/
-│   ├── page.tsx              # Demo page
-│   └── page.css              # Page-specific styles
+│   ├── page.tsx                 # Demo page
+│   └── page.css                 # Page-specific styles
 └── public/
-    └── images/               # Hover effect images
+    └── images/                  # Hover effect images
 ```
 
-This system provides a complete, reusable solution for creating animated grid layouts with flexible content and hover effects.
+## Component API Reference
+
+### GridWrapper
+
+```tsx
+interface GridWrapperProps {
+  rows: number;
+  columns: number;
+  gap?: number;
+  className?: string;
+  children: React.ReactElement<typeof GridCell> | React.ReactElement<typeof GridCell>[];
+}
+```
+
+### GridCell
+
+```tsx
+interface GridCellProps {
+  id?: string;
+  rowSpan?: number;
+  colSpan?: number;
+  className?: string;
+  style?: React.CSSProperties;
+  hoverImage?: string;
+  hoverDirection?: 'left' | 'right' | 'top' | 'bottom';
+  innerGrid?: boolean;
+  children: React.ReactNode;
+}
+```
+
+### CellContent
+
+```tsx
+interface CellContentProps {
+  children?: React.ReactNode;
+  empty?: boolean;
+  className?: string;
+}
+```
+
+### ProductContent
+
+```tsx
+interface ProductContentProps {
+  title: string;
+  description: string;
+  showArrow?: boolean;
+  className?: string;
+}
+```
+
+This system provides a complete, reusable solution for creating animated grid layouts with flexible content, type safety, and clean separation of concerns.
