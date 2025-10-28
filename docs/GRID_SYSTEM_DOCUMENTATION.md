@@ -16,7 +16,8 @@ The Evnia Grid System is a reusable, configurable grid layout system built with 
 - [CSS Architecture](#css-architecture)
 - [Best Practices](#best-practices)
 - [Troubleshooting](#troubleshooting)
-- [API Reference](#api-reference)
+- [File Structure](#file-structure)
+- [Component API Reference](#component-api-reference)
 
 ## Core Components
 

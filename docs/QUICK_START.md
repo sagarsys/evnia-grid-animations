@@ -7,6 +7,7 @@ The Evnia Grid System is a React component library for creating animated grid la
 ## 📦 Basic Usage
 
 ### 1. Simple Grid
+
 ```tsx
 import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } from '@/components';
 
@@ -29,6 +30,7 @@ import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } f
 ```
 
 ### 2. Grid with Hover Effects
+
 ```tsx
 <GridCell 
   className="cell-1"
@@ -44,6 +46,7 @@ import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } f
 ```
 
 ### 3. Complex Layout (Inner Grid)
+
 ```tsx
 <GridCell colSpan={2} innerGrid={true}>
   <GridCellContent innerCell={true}>
@@ -79,11 +82,13 @@ hoverDirection="bottom"  // ↓ slides from bottom
 ## 📐 Common Patterns
 
 ### Empty Cell
+
 ```tsx
 <CellContent empty={true} />
 ```
 
 ### Product with Arrow
+
 ```tsx
 <ProductContent 
   title="Product Name" 
@@ -93,6 +98,7 @@ hoverDirection="bottom"  // ↓ slides from bottom
 ```
 
 ### Product without Arrow
+
 ```tsx
 <ProductContent 
   title="Product Name" 
@@ -177,6 +183,7 @@ Add your own CSS classes to customize appearance:
 ## ⚡ That's It!
 
 You now know everything needed to create animated grid layouts. The system handles:
+
 - ✅ Automatic aspect ratios
 - ✅ Animated borders
 - ✅ Hover effects

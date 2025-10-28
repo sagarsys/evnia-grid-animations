@@ -21,6 +21,7 @@ import { GridWrapper, GridCell, GridCellContent, CellContent, ProductContent } f
 ## 📦 Components
 
 ### GridWrapper
+
 Main container with type-safe children validation.
 
 ```tsx
@@ -30,6 +31,7 @@ Main container with type-safe children validation.
 ```
 
 ### GridCell
+
 Individual cell with spanning and hover support.
 
 ```tsx
@@ -44,6 +46,7 @@ Individual cell with spanning and hover support.
 ```
 
 ### Content Components
+
 - `GridCellContent` - Cell layout structure
 - `CellContent` - Base content wrapper (`empty` prop for empty cells)
 - `ProductContent` - Product-specific content with title, description, and optional arrow
@@ -65,11 +68,13 @@ Individual cell with spanning and hover support.
 ## 🎯 Common Patterns
 
 ### Empty Cell
+
 ```tsx
 <CellContent empty={true} />
 ```
 
 ### Product with Hover
+
 ```tsx
 <GridCell hoverImage="/product.jpg" hoverDirection="left">
   <GridCellContent>
@@ -81,6 +86,7 @@ Individual cell with spanning and hover support.
 ```
 
 ### Inner Grid Layout
+
 ```tsx
 <GridCell colSpan={2} innerGrid={true}>
   <GridCellContent innerCell={true}>
@@ -103,7 +109,7 @@ npm run dev
 
 ## 📁 File Structure
 
-```
+```text
 src/components/
 ├── GridWrapper.tsx      # Main wrapper
 ├── Grid.tsx            # CSS Grid

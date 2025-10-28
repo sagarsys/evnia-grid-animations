@@ -1,4 +1,5 @@
 import React from 'react';
+import GridCellContent from './GridCellContent';
 import './GridCell.css';
 
 export interface GridCellProps {
@@ -10,7 +11,7 @@ export interface GridCellProps {
   hoverImage?: string;
   hoverDirection?: 'left' | 'right' | 'top' | 'bottom';
   innerGrid?: boolean; // New prop to enable inner grid
-  children: React.ReactNode;
+  children: React.ReactElement<typeof GridCellContent> | React.ReactElement<typeof GridCellContent>[];
 }
 
 export const GridCell: React.FC<GridCellProps> = ({
@@ -35,6 +36,15 @@ export const GridCell: React.FC<GridCellProps> = ({
   const hoverClasses = hoverImage ? `hover-image slide-from-${hoverDirection}` : '';
   const innerGridClass = innerGrid ? 'cell-with-inner-grid' : '';
 
+  // Validate that all children are GridCellContent components
+  const validChildren = React.Children.map(children, (child) => {
+    if (React.isValidElement(child) && child.type === GridCellContent) {
+      return child;
+    }
+    console.warn('GridCell only accepts GridCellContent children');
+    return null;
+  }).filter(Boolean);
+
   return (
     <div
       className={`grid-cell ${hoverClasses} ${innerGridClass} ${className}`}
@@ -42,10 +52,10 @@ export const GridCell: React.FC<GridCellProps> = ({
     >
       {innerGrid ? (
         <div className="inner-grid">
-          {children}
+          {validChildren}
         </div>
       ) : (
-        children
+        validChildren
       )}
     </div>
   );
