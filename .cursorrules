@@ -176,6 +176,42 @@ src/
 5. **Document animation patterns**
 6. **Keep CSS DRY** - avoid repetition
 
+## Git Commit Guidelines
+
+### Logical Commit Organization
+- **Group related changes** in single commits
+- **Separate unrelated changes** into different commits
+- **Use descriptive commit messages** with clear scope
+- **Follow conventional commit format**: `type(scope): description`
+
+### Commit Types
+- `feat:` - New features or functionality
+- `fix:` - Bug fixes
+- `refactor:` - Code restructuring without changing functionality
+- `style:` - CSS/styling changes, formatting, unused code removal
+- `docs:` - Documentation updates
+- `chore:` - Build process, dependencies, tooling changes
+
+### Examples
+```bash
+# ✅ Good - Related changes grouped together
+git commit -m "refactor: rename GridWrapper to Grid and remove unused components"
+git commit -m "style: clean up unused CSS and improve class naming"
+git commit -m "docs: update documentation to reflect Grid component changes"
+
+# ❌ Bad - Unrelated changes in one commit
+git commit -m "fix bugs and update docs and remove unused CSS"
+```
+
+### Commit Message Format
+```
+type(scope): brief description
+
+- Detailed bullet points explaining what was changed
+- Why the change was made
+- Any breaking changes or important notes
+```
+
 ## Performance Considerations
 
 - **Use CSS animations** over JavaScript when possible
