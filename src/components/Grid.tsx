@@ -1,4 +1,6 @@
 import React from 'react';
+import GridBorderOverlay from './GridBorderOverlay';
+import GridCell from './GridCell';
 import './Grid.css';
 
 export interface GridProps {
@@ -6,32 +8,48 @@ export interface GridProps {
   columns: number;
   gap?: number;
   className?: string;
-  children?: React.ReactNode;
+  children: React.ReactElement<typeof GridCell> | React.ReactElement<typeof GridCell>[];
 }
 
-export const Grid: React.FC<GridProps> = ({ 
-  rows, 
-  columns, 
-  gap = 8, 
+export const Grid: React.FC<GridProps> = ({
+  rows,
+  columns,
+  gap = 0,
   className = '',
   children
 }) => {
+  const aspectRatio = `${columns} / ${rows}`;
+  
+  // Validate that all children are GridCell components
+  const validChildren = React.Children.map(children, (child) => {
+    if (React.isValidElement(child) && child.type === GridCell) {
+      return child;
+    }
+    console.warn('Grid only accepts GridCell children');
+    return null;
+  }).filter(Boolean);
+
+  // Grid styles
   const gridStyle: React.CSSProperties = {
     gridTemplateRows: `repeat(${rows}, 1fr)`,
     gridTemplateColumns: `repeat(${columns}, 1fr)`,
     gap: `${gap}px`,
-    '--grid-aspect-ratio': `${columns} / ${rows}`,
-  } as React.CSSProperties;
-
+  };
+  
   return (
     <div 
-      className={`grid-container ${className}`}
-      style={gridStyle}
+      className={`grid-wrapper ${className}`}
+      style={{ '--grid-aspect-ratio': aspectRatio } as React.CSSProperties}
     >
-      {children}
+      <div 
+        className="grid-container"
+        style={gridStyle}
+      >
+        {validChildren}
+      </div>
+      <GridBorderOverlay rows={rows} columns={columns} />
     </div>
   );
 };
 
 export default Grid;
-
