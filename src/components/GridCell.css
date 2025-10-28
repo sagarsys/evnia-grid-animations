@@ -10,24 +10,6 @@
   /* Let the grid system handle sizing - cells will be square naturally */
 }
 
-@keyframes drawHorizontal {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes drawVertical {
-  from {
-    height: 0;
-  }
-  to {
-    height: 100%;
-  }
-}
-
 .grid-cell:hover {
   background: #e0e0e0;
 }

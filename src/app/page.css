@@ -12,23 +12,12 @@
   max-width: 800px;
 }
 
-.grid-display {
+.section {
   background: rgb(185, 185, 185);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 24px;
-}
-
-.grid-wrapper {
-  width: 100%;
-  /* Dynamic aspect ratio will be set via CSS custom property */
-  aspect-ratio: var(--grid-aspect-ratio, 3 / 2);
-  max-height: 500px;
-  position: relative;
-}
-
-.grid-wrapper {
-  position: relative;
+  margin-bottom: 32px;
 }
 
 .cell-content {
@@ -55,14 +44,6 @@
   animation-delay: 1.6s;
 }
 
-.cell-content-right {
-  align-items: flex-end;
-}
-
-.cell-content-center {
-  align-items: center;
-}
-
 .cell-with-inner-grid {
   padding: 0;
   border: none;
@@ -71,13 +52,6 @@
 .inner-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
-  height: 100%;
-}
-
-.inner-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   height: 100%;
 }
@@ -238,23 +212,6 @@
   }
 }
 
-@keyframes drawHorizontal {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes drawVertical {
-  from {
-    height: 0;
-  }
-  to {
-    height: 100%;
-  }
-}
 
 @keyframes fadeInFromLeft {
   from {
@@ -267,22 +224,6 @@
   }
 }
 
-/* Example cell styles for demonstration */
-.cell-example-1 {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-}
-
-.cell-example-2 {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-}
-
-.cell-example-3 {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-}
-
-.cell-example-4 {
-  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
-}
 
 @media (max-width: 768px) {
   .page-container {

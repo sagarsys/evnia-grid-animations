@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import GridWrapper from '@/components/GridWrapper';
+import Grid from '@/components/Grid';
 import GridCell from '@/components/GridCell';
 import GridCellContent from '@/components/GridCellContent';
 import CellContent from '@/components/CellContent';
@@ -12,7 +12,8 @@ export default function Home() {
   return (
     <div className="page-container">
       <div className="container">
-        <GridWrapper rows={2} columns={3} gap={0}>
+        <div className="section">
+          <Grid rows={2} columns={3} gap={0}>
           <GridCell 
             className="cell-3000"
             hoverImage="/images/ai-generated-8020817_1280.jpg"
@@ -65,10 +66,12 @@ export default function Home() {
               <CellContent empty={true} />
             </GridCellContent>
           </GridCell>
-        </GridWrapper>
+          </Grid>
+        </div>
 
         {/* Test Reusability: 2x1 Grid */}
-        <GridWrapper rows={1} columns={2} gap={0}>
+        <div className="section">
+          <Grid rows={1} columns={2} gap={0}>
           <GridCell className="cell-test-left">
             <GridCellContent>
               <ProductContent
@@ -88,7 +91,8 @@ export default function Home() {
               />
             </GridCellContent>
           </GridCell>
-        </GridWrapper>
+          </Grid>
+        </div>
       </div>
     </div>
   );
