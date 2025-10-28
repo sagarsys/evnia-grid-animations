@@ -82,6 +82,10 @@
   height: 100%;
 }
 
+.cell-with-inner-grid-3 .inner-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .inner-cell {
   display: flex;
   align-items: center;
@@ -124,24 +128,7 @@
   opacity: 1;
 }
 
-.cell-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.cell-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.cell-description {
-  color: #1f2937;
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
+/* Cell header, title, and description styles moved to Content.css */
 
 .cell-3000 {
   background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
@@ -278,6 +265,23 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+/* Example cell styles for demonstration */
+.cell-example-1 {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.cell-example-2 {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+}
+
+.cell-example-3 {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+
+.cell-example-4 {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,12 @@
+/* GridWrapper styles - minimal, inherits from page.css */
+.grid-display {
+  margin-bottom: 2rem;
+}
+
+.grid-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  aspect-ratio: var(--grid-aspect-ratio);
+  position: relative;
+}
