@@ -29,6 +29,7 @@
   opacity: 0;
   transform: translateX(-20px);
   animation: fadeInFromLeft 0.8s ease-out forwards;
+  animation-play-state: var(--animation-state, paused);
 }
 
 /* Staggered timing for each cell to match border animation */
@@ -224,6 +225,15 @@
   }
 }
 
+
+/* Reduced motion support - show content without animations */
+@media (prefers-reduced-motion: reduce) {
+  .cell-content {
+    opacity: 1;
+    transform: translateX(0);
+    animation: none;
+  }
+}
 
 @media (max-width: 768px) {
   .page-container {

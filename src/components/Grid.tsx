@@ -1,6 +1,7 @@
 import React from 'react';
 import GridBorderOverlay from './GridBorderOverlay';
 import GridCell from './GridCell';
+import useInView from '../hooks/useInView';
 import './Grid.css';
 
 export interface GridProps {
@@ -19,6 +20,7 @@ export const Grid: React.FC<GridProps> = ({
   children
 }) => {
   const aspectRatio = `${columns} / ${rows}`;
+  const [gridRef, isInView] = useInView({ threshold: 0.1, triggerOnce: true });
   
   // Validate that all children are GridCell components
   const validChildren = React.Children.map(children, (child) => {
@@ -38,8 +40,12 @@ export const Grid: React.FC<GridProps> = ({
   
   return (
     <div 
+      ref={gridRef}
       className={`grid-wrapper ${className}`}
-      style={{ '--grid-aspect-ratio': aspectRatio } as React.CSSProperties}
+      style={{ 
+        '--grid-aspect-ratio': aspectRatio,
+        '--animation-state': isInView ? 'running' : 'paused'
+      } as React.CSSProperties}
     >
       <div 
         className="grid-container"

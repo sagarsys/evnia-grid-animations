@@ -19,6 +19,7 @@
   left: 0;
   opacity: 0.25;
   animation: drawHorizontal 1s ease-in-out forwards, fadeInHorizontal 0.8s ease-in-out forwards;
+  animation-play-state: var(--animation-state, paused);
 }
 
 .vertical-line {
@@ -27,6 +28,22 @@
   top: 0;
   opacity: 0.25;
   animation: drawVertical 1s ease-in-out forwards, fadeInVertical 0.8s ease-in-out forwards;
+  animation-play-state: var(--animation-state, paused);
+}
+
+/* Reduced motion support - show content without animations */
+@media (prefers-reduced-motion: reduce) {
+  .horizontal-line {
+    width: 100%;
+    opacity: 1;
+    animation: none;
+  }
+  
+  .vertical-line {
+    height: 100%;
+    opacity: 1;
+    animation: none;
+  }
 }
 
 @keyframes drawHorizontal {

@@ -108,7 +108,7 @@ This is a React/Next.js project for creating configurable grid systems with anim
 
 ### CSS Structure
 
-```
+```text
 src/
 ├── components/
 │   ├── Grid.css           # Base grid styles
@@ -120,7 +120,7 @@ src/
 
 ### Component Structure
 
-```
+```text
 src/
 ├── components/
 │   ├── Grid.tsx          # Reusable grid component
