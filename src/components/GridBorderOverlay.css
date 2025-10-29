@@ -10,7 +10,7 @@
 
 .border-line {
   position: absolute;
-  background: red;
+  background: rgb(255, 255, 255);
 }
 
 .horizontal-line {
