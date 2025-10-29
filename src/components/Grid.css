@@ -1,7 +1,7 @@
 /* Grid styles */
 .grid-wrapper {
   width: 100%;
-  aspect-ratio: var(--grid-aspect-ratio, 3 / 2);
+  aspect-ratio: var(--grid-aspect-ratio, 1 / 1);
   max-height: 500px;
   position: relative;
 }
