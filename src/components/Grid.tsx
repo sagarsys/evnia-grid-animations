@@ -40,7 +40,7 @@ export const Grid: React.FC<GridProps> = ({
   
   return (
     <div 
-      ref={gridRef}
+      ref={gridRef as React.RefObject<HTMLDivElement>}
       className={`grid-wrapper ${className}`}
       style={{ 
         '--grid-aspect-ratio': aspectRatio,
